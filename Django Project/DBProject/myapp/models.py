@@ -10,3 +10,6 @@ class usersignup(models.Model):
     dob=models.DateField()
     mobile=models.IntegerField()
     address=models.TextField()
+
+    def __str__(self) -> str:
+        return self.email
