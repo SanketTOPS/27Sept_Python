@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .forms import signupForm
 from .models import usersignup
 
@@ -18,5 +18,20 @@ def showdata(request):
     alldata=usersignup.objects.all()
     return render(request,'showdata.html',{'data':alldata})
 
-def updatedata(request):
-    return render(request,'updatedata.html')
+def updatedata(request,id):
+    uid=usersignup.objects.get(id=id)
+    if request.method=='POST':
+        updateuser=signupForm(request.POST)
+        if updateuser.is_valid():
+            updateuser=signupForm(request.POST,instance=uid)
+            updateuser.save()
+            print("Your data has been updated!")
+            return redirect('showdata')
+        else:
+            print(updateuser.errors)
+    return render(request,'updatedata.html',{'uid':usersignup.objects.get(id=id)})
+
+def deletedata(request,id):
+    uid=usersignup.objects.get(id=id)
+    usersignup.delete(uid)
+    return redirect('showdata')
