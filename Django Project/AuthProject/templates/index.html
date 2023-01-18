@@ -18,19 +18,31 @@
         <h1>Welcome to AuthProject</h1>
     </center>
     <hr>
+    <center><table>
+        <td>
+            {% if user is none %}
+            <tr><a href="/about"><h5 style="color:rgb(26, 18, 1);font-family: Georgia, 'Times New Roman', Times, serif;">About</h5></a></tr>
+            <tr><a href="/contact"><h5 style="color:rgb(26, 18, 1);font-family: Georgia, 'Times New Roman', Times, serif;">Contact</h5></a></tr>
+            {% else %}
+            <tr><a href="/feedback"><h5 style="color:rgb(26, 18, 1);font-family: Georgia, 'Times New Roman', Times, serif;">Feedback</h5></a></tr>
+            {% endif %}
+        </td>
+    </table></center>
+    <hr>
     <center>
         <h1><u>Login</u></h1>
     </center>
     <div class="container my-5">
-        <form>
+        <form method="post">
+            {% csrf_token %}
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Username</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1">
             </div>
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
